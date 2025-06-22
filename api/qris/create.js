@@ -229,7 +229,7 @@ async function createQRIS(amount, codeqr) {
 }
 
 module.exports = (app) => {
-  app.get("/api/qris/create", async (req, res) => {
+  app.post("/api/qris/create", async (req, res) => {
     try {
       const { amount } = req.body
 
@@ -336,3 +336,5 @@ module.exports = (app) => {
     }
   })
 }
+
+module.exports = app

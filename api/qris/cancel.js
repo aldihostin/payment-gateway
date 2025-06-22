@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  app.get("/api/qris/cancel/:transactionId", (req, res) => {
+  app.post("/api/qris/cancel/:transactionId", (req, res) => {
     try {
       const { transactionId } = req.params
 
@@ -48,3 +48,5 @@ module.exports = (app) => {
     }
   })
 }
+
+module.exports = app
