@@ -39,7 +39,7 @@ module.exports = (app) => {
   })
 
   // Debug endpoint to manually clean up transactions
-  app.post("/api/qris/debug/cleanup", (req, res) => {
+  app.get("/api/qris/debug/cleanup", (req, res) => {
     try {
       let cleanedCount = 0
       const now = new Date()
