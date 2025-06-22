@@ -8,18 +8,6 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/index.js"
-    },
-    {
-      "src": "/status(.*)",
-      "dest": "/status.html"
-    },
-    {
-      "src": "/style/(.*)",
-      "dest": "/style/$1"
-    },  
-    {
       "src": "/(.*)",
       "dest": "/index.js"
     }

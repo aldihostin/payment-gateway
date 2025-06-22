@@ -19,7 +19,6 @@ app.use(cors())
 // Static file serving
 app.use("/", express.static(path.join(__dirname, "/")))
 app.use("/style", express.static(path.join(__dirname, "style")))
-app.use("/api", express.static(path.join(__dirname, "api")))
 
 // Global variables
 global.transactions = global.transactions || new Map()
@@ -103,21 +102,7 @@ if (fs.existsSync(apiFolder)) {
 console.log(chalk.bgHex("#90EE90").hex("#333").bold(" Load Complete! ✓ "))
 console.log(chalk.bgHex("#90EE90").hex("#333").bold(` Total Routes Loaded: ${totalRoutes} `))
 
-// FIXED: Add routes for status page
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"))
-})
-
-// Route for status page (with and without .html)
-app.get("/status", (req, res) => {
-  res.sendFile(path.join(__dirname, "status.html"))
-})
-
-app.get("/status.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "status.html"))
-})
-
-// Catch-all route for SPA-like behavior
+// SIMPLIFIED ROUTING - All routes serve index.html (SPA)
 app.get("*", (req, res) => {
   // If it's an API route, let it 404
   if (req.path.startsWith("/api/")) {
@@ -127,7 +112,7 @@ app.get("*", (req, res) => {
     })
   }
 
-  // For other routes, serve the main page
+  // For all other routes, serve the main page (SPA behavior)
   res.sendFile(path.join(__dirname, "index.html"))
 })
 
