@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QRIS Payment Gateway - Indonesia</title>
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="icon" href="https://files.catbox.moe/udfyqo.jpg" type="image/jpeg" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+        <div class="bg-shape shape-3"></div>
+        <div class="bg-shape shape-4"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+                <div class="brand-info">
+                    <h1>QRIS Gateway</h1>
+                    <span>Pembayaran Digital Terpercaya</span>
+                </div>
+            </div>
+            <div class="security-badge">
+                <i class="fas fa-shield-check"></i>
+                <span>Secure</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Create Payment Section -->
+            <section id="createSection" class="section-card">
+                <div class="card-header">
+                    <div class="header-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="header-content">
+                        <h2>Buat Pembayaran</h2>
+                        <p>Masukkan nominal yang ingin dibayar</p>
+                    </div>
+                </div>
+
+                <form id="paymentForm" class="payment-form">
+                    <div class="amount-input-group">
+                        <label for="amount">Nominal Pembayaran</label>
+                        <div class="amount-input-wrapper">
+                            <span class="currency-symbol">Rp</span>
+                            <input 
+                                type="text" 
+                                id="amount" 
+                                name="amount" 
+                                placeholder="0" 
+                                required 
+                                autocomplete="off" 
+                            />
+                        </div>
+                        <div class="input-helper">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Masukkan nominal pembayaran yang diinginkan</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="create-btn" id="createBtn">
+                        <span class="btn-text">
+                            <i class="fas fa-qrcode"></i>
+                            Generate QRIS
+                        </span>
+                        <div class="btn-loading">
+                            <div class="loading-spinner"></div>
+                            <span>Membuat QRIS...</span>
+                        </div>
+                    </button>
+                </form>
+            </section>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <p>&copy; 2025 QRIS Gateway</p>
+                    <p>Powered by <a href="https://wa.me/6281235807940" target="_blank">@krsna_081</a></p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://whatsapp.com/channel/0029VaOQ0f3BA1f7HHV9DV1J" target="_blank" class="footer-link">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Channel</span>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Script -->
+    <script src="style/script.js"></script>
+</body>
+</html>
