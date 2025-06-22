@@ -90,13 +90,13 @@ class QRISPaymentGateway {
           this.showToast("QRIS berhasil dibuat! Mengalihkan ke halaman pembayaran...", "success")
         }
 
-        // Redirect to status page with transaction ID
+        // FIXED: Multiple redirect options for better compatibility
         setTimeout(
           () => {
-            window.location.href = `/status.html?id=${result.data.idtransaksi}`
+            this.redirectToStatus(result.data.idtransaksi)
           },
           result.data.wasAmountAdjusted ? 3000 : 1500,
-        ) // Longer delay if amount was adjusted
+        )
       } else {
         console.error("❌ Failed to create payment:", result.message)
         this.showToast(result.message || "Gagal membuat QRIS", "error")
@@ -107,6 +107,156 @@ class QRISPaymentGateway {
     } finally {
       this.setCreateButtonLoading(false)
     }
+  }
+
+  // FIXED: Better redirect handling for Vercel
+  redirectToStatus(transactionId) {
+    console.log("🔄 Redirecting to status page for:", transactionId)
+
+    // Try multiple redirect methods for better compatibility
+    const redirectMethods = [
+      // Method 1: Try status.html directly
+      () => {
+        window.location.href = `/status.html?id=${transactionId}`
+      },
+      // Method 2: Try without .html extension
+      () => {
+        window.location.href = `/status?id=${transactionId}`
+      },
+      // Method 3: Try with relative path
+      () => {
+        window.location.href = `./status.html?id=${transactionId}`
+      },
+      // Method 4: Use window.location.assign
+      () => {
+        window.location.assign(`/status.html?id=${transactionId}`)
+      },
+      // Method 5: Fallback - show status on same page
+      () => {
+        this.showStatusOnSamePage(transactionId)
+      },
+    ]
+
+    // Try first method
+    try {
+      redirectMethods[0]()
+    } catch (error) {
+      console.error("❌ Redirect failed, trying fallback:", error)
+      // If redirect fails, show status on same page
+      this.showStatusOnSamePage(transactionId)
+    }
+  }
+
+  // Fallback: Show status on the same page
+  showStatusOnSamePage(transactionId) {
+    console.log("🔄 Showing status on same page for:", transactionId)
+
+    // Hide create section
+    const createSection = document.getElementById("createSection")
+    if (createSection) {
+      createSection.classList.add("hidden")
+    }
+
+    // Show status section (if exists)
+    const statusSection = document.getElementById("statusSection")
+    if (statusSection) {
+      statusSection.classList.remove("hidden")
+      this.loadTransactionStatus(transactionId)
+    } else {
+      // Create a simple status display
+      this.createStatusDisplay(transactionId)
+    }
+  }
+
+  async loadTransactionStatus(transactionId) {
+    try {
+      const response = await fetch(`/api/qris/status/${transactionId}`)
+      const result = await response.json()
+
+      if (result.status && result.data) {
+        this.displayTransactionStatus(result.data)
+      } else {
+        this.showToast("Gagal memuat status transaksi", "error")
+      }
+    } catch (error) {
+      console.error("❌ Error loading transaction status:", error)
+      this.showToast("Terjadi kesalahan saat memuat status", "error")
+    }
+  }
+
+  displayTransactionStatus(transaction) {
+    // Update transaction ID
+    const transactionIdEl = document.getElementById("transactionId")
+    if (transactionIdEl) {
+      transactionIdEl.textContent = transaction.idtransaksi
+    }
+
+    // Update amount
+    const paymentAmountEl = document.getElementById("paymentAmount")
+    if (paymentAmountEl) {
+      paymentAmountEl.textContent = this.formatCurrency(transaction.jumlah)
+    }
+
+    // Update expiry
+    const paymentExpiryEl = document.getElementById("paymentExpiry")
+    if (paymentExpiryEl) {
+      paymentExpiryEl.textContent = this.formatDateTime(transaction.expired)
+    }
+
+    // Display QRIS image
+    if (transaction.imageqris?.url) {
+      const qrisImage = document.getElementById("qrisImage")
+      const qrisLoading = document.getElementById("qrisLoading")
+
+      if (qrisImage && qrisLoading) {
+        qrisLoading.style.display = "none"
+        qrisImage.src = transaction.imageqris.url
+        qrisImage.style.display = "block"
+        qrisImage.classList.remove("hidden")
+      }
+    }
+
+    this.showToast("Status transaksi berhasil dimuat!", "success")
+  }
+
+  createStatusDisplay(transactionId) {
+    // Create a simple status display if status section doesn't exist
+    const mainContent = document.querySelector(".app-main")
+    if (!mainContent) return
+
+    const statusHTML = `
+      <section class="section-card">
+        <div class="card-header">
+          <div class="header-icon">
+            <i class="fas fa-qrcode"></i>
+          </div>
+          <div class="header-content">
+            <h2>Status Pembayaran</h2>
+            <p>Transaksi ID: <strong>${transactionId}</strong></p>
+          </div>
+        </div>
+        
+        <div style="text-align: center; padding: 2rem;">
+          <div class="loading-spinner-large"></div>
+          <p>Memuat status pembayaran...</p>
+          <br>
+          <button onclick="window.location.reload()" class="create-btn" style="margin-top: 1rem;">
+            <i class="fas fa-refresh"></i>
+            Refresh Halaman
+          </button>
+          <br><br>
+          <a href="/" class="create-btn" style="background: #6b7280; text-decoration: none; display: inline-block; margin-top: 0.5rem;">
+            <i class="fas fa-home"></i>
+            Kembali ke Beranda
+          </a>
+        </div>
+      </section>
+    `
+
+    mainContent.innerHTML = statusHTML
+
+    // Try to load the actual status
+    this.loadTransactionStatus(transactionId)
   }
 
   setCreateButtonLoading(loading) {
@@ -167,6 +317,26 @@ class QRISPaymentGateway {
       info: "fa-info-circle",
     }
     return icons[type] || icons.info
+  }
+
+  formatCurrency(amount) {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(amount)
+  }
+
+  formatDateTime(dateString) {
+    const date = new Date(dateString)
+    return new Intl.DateTimeFormat("id-ID", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    }).format(date)
   }
 }
 

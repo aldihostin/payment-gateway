@@ -103,8 +103,31 @@ if (fs.existsSync(apiFolder)) {
 console.log(chalk.bgHex("#90EE90").hex("#333").bold(" Load Complete! ✓ "))
 console.log(chalk.bgHex("#90EE90").hex("#333").bold(` Total Routes Loaded: ${totalRoutes} `))
 
-// Default home page
+// FIXED: Add routes for status page
 app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"))
+})
+
+// Route for status page (with and without .html)
+app.get("/status", (req, res) => {
+  res.sendFile(path.join(__dirname, "status.html"))
+})
+
+app.get("/status.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "status.html"))
+})
+
+// Catch-all route for SPA-like behavior
+app.get("*", (req, res) => {
+  // If it's an API route, let it 404
+  if (req.path.startsWith("/api/")) {
+    return res.status(404).json({
+      status: false,
+      message: "API endpoint not found",
+    })
+  }
+
+  // For other routes, serve the main page
   res.sendFile(path.join(__dirname, "index.html"))
 })
 
