@@ -485,10 +485,83 @@ class QRISPaymentGateway {
     if (newPaymentBtn) newPaymentBtn.classList.remove("hidden")
     if (successSection) {
       successSection.classList.remove("hidden")
-      const paidTime = document.getElementById("paidTime")
-      if (paidTime && this.currentTransaction.paidAt) {
-        paidTime.textContent = this.formatDateTime(this.currentTransaction.paidAt)
+
+      // Fill invoice details
+      this.fillInvoiceDetails()
+
+      // Send Telegram notification to owner
+      this.sendTelegramNotification()
+    }
+  }
+
+  fillInvoiceDetails() {
+    if (!this.currentTransaction) return
+
+    const transaction = this.currentTransaction
+
+    // Transaction ID
+    const invoiceTransactionId = document.getElementById("invoiceTransactionId")
+    if (invoiceTransactionId) {
+      invoiceTransactionId.textContent = transaction.idtransaksi
+    }
+
+    // Paid Amount
+    const invoicePaidAmount = document.getElementById("invoicePaidAmount")
+    if (invoicePaidAmount) {
+      invoicePaidAmount.textContent = this.formatCurrency(transaction.jumlah)
+    }
+
+    // Paid Time
+    const invoicePaidTime = document.getElementById("invoicePaidTime")
+    if (invoicePaidTime && transaction.paidAt) {
+      invoicePaidTime.textContent = this.formatDateTime(transaction.paidAt)
+    }
+
+    // Show adjustment info if applicable
+    const invoiceAdjustmentInfo = document.getElementById("invoiceAdjustmentInfo")
+    const invoiceAdjustmentText = document.getElementById("invoiceAdjustmentText")
+
+    if (transaction.wasAmountAdjusted && transaction.originalAmount && invoiceAdjustmentInfo && invoiceAdjustmentText) {
+      const originalAmount = this.formatCurrency(transaction.originalAmount)
+      const finalAmount = this.formatCurrency(transaction.jumlah)
+      invoiceAdjustmentText.textContent = `${originalAmount} → ${finalAmount} (+${transaction.amountAdjustment || 1})`
+      invoiceAdjustmentInfo.classList.remove("hidden")
+    } else if (invoiceAdjustmentInfo) {
+      invoiceAdjustmentInfo.classList.add("hidden")
+    }
+  }
+
+  async sendTelegramNotification() {
+    if (!this.currentTransaction) return
+
+    try {
+      console.log("📱 Sending Telegram notification to owner...")
+
+      const response = await fetch("/api/qris/telegram-notify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          transactionId: this.currentTransaction.idtransaksi,
+          amount: this.currentTransaction.jumlah,
+          originalAmount: this.currentTransaction.originalAmount,
+          wasAmountAdjusted: this.currentTransaction.wasAmountAdjusted,
+          amountAdjustment: this.currentTransaction.amountAdjustment,
+          paidAt: this.currentTransaction.paidAt,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.status) {
+        console.log("✅ Telegram notification sent successfully")
+      } else {
+        console.log("❌ Failed to send Telegram notification:", result.message)
       }
+    } catch (error) {
+      console.error("❌ Error sending Telegram notification:", error)
+      // Don't show error to user as this is background notification
     }
   }
 

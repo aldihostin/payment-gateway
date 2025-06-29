@@ -201,16 +201,50 @@
                         <div class="success-ripple"></div>
                     </div>
                     <div class="success-content">
-                        <h3>Pembayaran Berhasil!</h3>
+                        <h3>🎉 Pembayaran Berhasil!</h3>
                         <p>Transaksi Anda telah berhasil diproses</p>
-                        <div class="success-details">
-                            <div class="detail-row">
-                                <span>Dibayar pada:</span>
-                                <span id="paidTime"></span>
+                        
+                        <!-- Invoice Details -->
+                        <div class="invoice-details">
+                            <div class="invoice-header">
+                                <h4><i class="fas fa-receipt"></i> Detail Pembayaran</h4>
                             </div>
-                            <div class="detail-row">
-                                <span>Metode:</span>
-                                <span>QRIS</span>
+                            
+                            <div class="invoice-body">
+                                <div class="detail-row">
+                                    <span class="detail-label">ID Transaksi:</span>
+                                    <span class="detail-value" id="invoiceTransactionId"></span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Jumlah Dibayar:</span>
+                                    <span class="detail-value" id="invoicePaidAmount"></span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Metode Pembayaran:</span>
+                                    <span class="detail-value">QRIS</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Waktu Pembayaran:</span>
+                                    <span class="detail-value" id="invoicePaidTime"></span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Status:</span>
+                                    <span class="detail-value success-status">
+                                        <i class="fas fa-check-circle"></i> BERHASIL
+                                    </span>
+                                </div>
+                                <!-- Show adjustment info if applicable -->
+                                <div id="invoiceAdjustmentInfo" class="detail-row adjustment-row hidden">
+                                    <span class="detail-label">Penyesuaian Jumlah:</span>
+                                    <span class="detail-value" id="invoiceAdjustmentText"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="invoice-footer">
+                                <div class="invoice-note">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Pembayaran telah dikonfirmasi dan diproses dengan aman</span>
+                                </div>
                             </div>
                         </div>
                     </div>
