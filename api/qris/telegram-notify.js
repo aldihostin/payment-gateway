@@ -48,29 +48,27 @@ async function sendPaymentNotification(paymentData) {
     }
 
     // Create notification message
-    let message = `🎉 *PEMBAYARAN BERHASIL!*\n\n`
-    message += `💰 *Jumlah:* ${formatCurrency(paymentData.amount)}\n`
-    message += `🆔 *ID Transaksi:* \`${paymentData.transactionId}\`\n`
-    message += `⏰ *Waktu:* ${formatDateTime(paymentData.paidAt || new Date())}\n`
-    message += `💳 *Metode:* QRIS\n`
-    message += `✅ *Status:* BERHASIL\n\n`
+let message = `<b>🎉 PEMBAYARAN BERHASIL!</b>\n\n`
+message += `<b>💰 Jumlah:</b> ${formatCurrency(paymentData.amount)}\n`
+message += `<b>🆔 ID Transaksi:</b> <code>${paymentData.transactionId}</code>\n`
+message += `<b>⏰ Waktu:</b> ${formatDateTime(paymentData.paidAt || new Date())}\n`
+message += `<b>💳 Metode:</b> QRIS\n`
+message += `<b>✅ Status:</b> BERHASIL\n\n`
 
-    // Add adjustment info if applicable
-    if (paymentData.wasAmountAdjusted && paymentData.originalAmount) {
-      const originalAmount = formatCurrency(paymentData.originalAmount)
-      const finalAmount = formatCurrency(paymentData.amount)
-      message += `📝 *Penyesuaian Jumlah:*\n`
-      message += `   ${originalAmount} → ${finalAmount}\n`
-      message += `   (+${paymentData.amountAdjustment || 1})\n\n`
-    }
+if (paymentData.wasAmountAdjusted && paymentData.originalAmount) {
+  const originalAmount = formatCurrency(paymentData.originalAmount)
+  const finalAmount = formatCurrency(paymentData.amount)
+  message += `<b>📝 Penyesuaian Jumlah:</b>\n`
+  message += `   ${originalAmount} → ${finalAmount}\n`
+  message += `   (+${paymentData.amountAdjustment || 1})\n\n`
+}
 
-    message += `🔗 *QRIS Gateway*\n`
-    message += `Powered by @krsna_081`
+message += `<b>🔗 QRIS Gateway</b>\n`
+message += `Powered by @krsna_081`
 
     // Send message to owner
     await bot.telegram.sendMessage(ownerId, message, {
-      parse_mode: "Markdown",
-      disable_web_page_preview: true,
+      parse_mode: "HTML",
     })
 
     console.log("✅ Telegram notification sent to owner:", ownerId)
