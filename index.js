@@ -40,22 +40,22 @@ function cleanupExpiredTransactions() {
     if (now > expiredTime && now - expiredTime > 5 * 60 * 1000) {
       global.transactions.delete(transactionId)
       cleanedCount++
-      console.log("🗑️ Auto-cleaned expired transaction:", transactionId)
+      console.log("▷ Auto-cleaned expired transaction:", transactionId)
     }
   }
 
   if (cleanedCount > 0) {
-    console.log(`🧹 Auto-cleanup completed: ${cleanedCount} transactions removed`)
+    console.log("▶ Auto-cleanup completed:", cleanedCount, "transactions removed")
   }
 }
 
 // Run cleanup every 5 minutes
 setInterval(cleanupExpiredTransactions, 5 * 60 * 1000)
-console.log("🧹 Auto-cleanup scheduler started (every 5 minutes)")
+console.log("▶ Auto-cleanup scheduler started (every 5 minutes)")
 
 // Middleware untuk log dan format JSON response
 app.use((req, res, next) => {
-  console.log(chalk.bgHex("#FFFF99").hex("#333").bold(` Request Route: ${req.path} `))
+  console.log(chalk.bgHex("#FFFF99").hex("#333").bold(` ▶ Request Route: ${req.path} `))
   global.totalreq += 1
 
   const originalJson = res.json
@@ -91,7 +91,7 @@ if (fs.existsSync(apiFolder)) {
             chalk
               .bgHex("#FFFF99")
               .hex("#333")
-              .bold(` Loaded Route: ${path.basename(file)} `),
+              .bold(` ▶ Loaded Route: ${path.basename(file)} `),
           )
         }
       })
@@ -99,10 +99,13 @@ if (fs.existsSync(apiFolder)) {
   })
 }
 
-console.log(chalk.bgHex("#90EE90").hex("#333").bold(" Load Complete! ✓ "))
-console.log(chalk.bgHex("#90EE90").hex("#333").bold(` Total Routes Loaded: ${totalRoutes} `))
+console.log(chalk.bgHex("#90EE90").hex("#333").bold(" ✓ Load Complete! "))
+console.log(chalk.bgHex("#90EE90").hex("#333").bold(` ▶ Total Routes Loaded: ${totalRoutes} `))
 
 // SIMPLIFIED ROUTING - All routes serve index.html (SPA)
+app.get("/docs", (req, res) => {
+  res.sendFile(path.join(__dirname, "docs.html"))
+})
 app.get("*", (req, res) => {
   // If it's an API route, let it 404
   if (req.path.startsWith("/api/")) {
@@ -118,12 +121,12 @@ app.get("*", (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(chalk.bgHex("#90EE90").hex("#333").bold(` Server is running on port ${PORT} `))
+  console.log(chalk.bgHex("#90EE90").hex("#333").bold(` ▶ Server is running on port ${PORT} `))
   console.log(
     chalk
       .bgHex("#87CEEB")
       .hex("#333")
-      .bold(` Environment loaded: ${process.env.NODE_ENV || "development"} `),
+      .bold(` ▶ Environment loaded: ${process.env.NODE_ENV || "development"} `),
   )
 })
 

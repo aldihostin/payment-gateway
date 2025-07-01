@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - QRIS Gateway</title>
+    <link rel="icon" href="https://files.catbox.moe/tsn2ke.jpg" type="image/jpeg">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .docs-grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .endpoint-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .method-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+        }
+
+        .method-post {
+            background: #10b981;
+            color: white;
+        }
+
+        .method-get {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .endpoint-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .endpoint-url {
+            font-family: 'Monaco', 'Menlo', monospace;
+            background: #f3f4f6;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #6366f1;
+            border-left: 4px solid #6366f1;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        .param-table th,
+        .param-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .param-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .param-required {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .param-optional {
+            color: #6b7280;
+        }
+
+        .response-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .status-200 {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-400 {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-404 {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-500 {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                position: static;
+                justify-content: center;
+                margin-bottom: 2rem;
+            }
+
+            .endpoint-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-links">
+        <a href="/" class="nav-link">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="https://wa.me/6281235807940" target="_blank" class="nav-link">
+            <i class="fab fa-whatsapp"></i> Contact
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-code"></i> API Documentation</h1>
+            <p>QRIS Payment Gateway REST API</p>
+        </div>
+
+        <div class="docs-grid">
+            <!-- Create QRIS Payment -->
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="method-badge method-post">POST</span>
+                    <h2 class="endpoint-title">Create QRIS Payment</h2>
+                </div>
+                
+                <div class="endpoint-url">/api/qris/create</div>
+                
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-arrow-right"></i> Request Body
+                    </h3>
+                    <table class="param-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>amount</code></td>
+                                <td>number</td>
+                                <td><span class="param-required">Required</span></td>
+                                <td>Payment amount in IDR (minimum 1)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-code"></i> Example Request
+                    </h3>
+                    <div class="code-block">
+{
+  "amount": 50000
+}</div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-check-circle"></i> Success Response
+                    </h3>
+                    <span class="response-status status-200">200 OK</span>
+                    <div class="code-block">
+{
+  "status": true,
+  "creator": "Created Using @krsna_081",
+  "message": "QRIS berhasil dibuat",
+  "data": {
+    "idtransaksi": "QRIS-A1B2C3D4",
+    "jumlah": 50000,
+    "expired": "2025-01-07T12:35:00.000Z",
+    "qrisString": "00020101021126...",
+    "imageqris": {
+      "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
+      "format": "base64",
+      "size": "512x512",
+      "type": "image/png"
+    },
+    "originalAmount": 50000,
+    "wasAmountAdjusted": false,
+    "amountAdjustment": 0
+  },
+  "timestamp": "2025-01-07T12:30:00.000Z"
+}</div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-exclamation-triangle"></i> Error Response
+                    </h3>
+                    <span class="response-status status-400">400 Bad Request</span>
+                    <div class="code-block">
+{
+  "status": false,
+  "creator": "Created Using @krsna_081",
+  "message": "Jumlah harus diisi dan lebih dari 0"
+}</div>
+                </div>
+            </div>
+
+            <!-- Check Payment Status -->
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="method-badge method-get">GET</span>
+                    <h2 class="endpoint-title">Check Payment Status</h2>
+                </div>
+                
+                <div class="endpoint-url">/api/qris/status/{transactionId}</div>
+                
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-route"></i> Path Parameters
+                    </h3>
+                    <table class="param-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>transactionId</code></td>
+                                <td>string</td>
+                                <td><span class="param-required">Required</span></td>
+                                <td>Transaction ID from create response</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-check-circle"></i> Success Response
+                    </h3>
+                    <span class="response-status status-200">200 OK</span>
+                    <div class="code-block">
+{
+  "status": true,
+  "creator": "Created Using @krsna_081",
+  "message": "Transaction status retrieved",
+  "data": {
+    "idtransaksi": "QRIS-A1B2C3D4",
+    "jumlah": 50000,
+    "expired": "2025-01-07T12:35:00.000Z",
+    "status": "success",
+    "createdAt": "2025-01-07T12:30:00.000Z",
+    "paidAt": "2025-01-07T12:32:15.000Z",
+    "paymentDetails": {
+      "type": "CR",
+      "amount": "50000",
+      "qris": "static"
+    }
+  }
+}</div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-info-circle"></i> Status Values
+                    </h3>
+                    <table class="param-table">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>pending</code></td>
+                                <td>Payment is waiting for completion</td>
+                            </tr>
+                            <tr>
+                                <td><code>success</code></td>
+                                <td>Payment completed successfully</td>
+                            </tr>
+                            <tr>
+                                <td><code>expired</code></td>
+                                <td>Payment time has expired</td>
+                            </tr>
+                            <tr>
+                                <td><code>cancelled</code></td>
+                                <td>Payment was cancelled</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Cancel Payment -->
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="method-badge method-post">POST</span>
+                    <h2 class="endpoint-title">Cancel Payment</h2>
+                </div>
+                
+                <div class="endpoint-url">/api/qris/cancel/{transactionId}</div>
+                
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-route"></i> Path Parameters
+                    </h3>
+                    <table class="param-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>transactionId</code></td>
+                                <td>string</td>
+                                <td><span class="param-required">Required</span></td>
+                                <td>Transaction ID to cancel</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-check-circle"></i> Success Response
+                    </h3>
+                    <span class="response-status status-200">200 OK</span>
+                    <div class="code-block">
+{
+  "status": true,
+  "creator": "Created Using @krsna_081",
+  "message": "Transaction cancelled successfully",
+  "data": {
+    "idtransaksi": "QRIS-A1B2C3D4",
+    "status": "cancelled",
+    "cancelledAt": "2025-01-07T12:33:00.000Z"
+  }
+}</div>
+                </div>
+            </div>
+
+            <!-- Telegram Notification -->
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="method-badge method-post">POST</span>
+                    <h2 class="endpoint-title">Telegram Notification</h2>
+                </div>
+                
+                <div class="endpoint-url">/api/qris/telegram-notify</div>
+                
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-info-circle"></i> Description
+                    </h3>
+                    <p>Internal endpoint for sending payment notifications to Telegram. Automatically called when payment is successful.</p>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-arrow-right"></i> Request Body
+                    </h3>
+                    <table class="param-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>transactionId</code></td>
+                                <td>string</td>
+                                <td><span class="param-required">Required</span></td>
+                                <td>Transaction ID</td>
+                            </tr>
+                            <tr>
+                                <td><code>amount</code></td>
+                                <td>number</td>
+                                <td><span class="param-required">Required</span></td>
+                                <td>Payment amount</td>
+                            </tr>
+                            <tr>
+                                <td><code>paidAt</code></td>
+                                <td>string</td>
+                                <td><span class="param-optional">Optional</span></td>
+                                <td>Payment timestamp</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Debug Endpoints -->
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="method-badge method-get">GET</span>
+                    <h2 class="endpoint-title">Debug - View Transactions</h2>
+                </div>
+                
+                <div class="endpoint-url">/api/qris/debug/transactions</div>
+                
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-info-circle"></i> Description
+                    </h3>
+                    <p>Development endpoint to view all active transactions in memory.</p>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <i class="fas fa-check-circle"></i> Success Response
+                    </h3>
+                    <span class="response-status status-200">200 OK</span>
+                    <div class="code-block">
+{
+  "status": true,
+  "creator": "Created Using @krsna_081",
+  "message": "Active transactions retrieved",
+  "data": {
+    "totalTransactions": 2,
+    "transactions": [
+      {
+        "id": "QRIS-A1B2C3D4",
+        "amount": 50000,
+        "status": "pending",
+        "createdAt": "2025-01-07T12:30:00.000Z",
+        "expired": "2025-01-07T12:35:00.000Z"
+      }
+    ]
+  }
+}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 QRIS Gateway API Documentation</p>
+            <p>Powered by <a href="https://wa.me/6281235807940" target="_blank" style="color: white;">@krsna_081</a></p>
+        </div>
+    </div>
+</body>
+</html>

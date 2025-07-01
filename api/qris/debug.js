@@ -29,7 +29,7 @@ module.exports = (app) => {
         timestamp: new Date().toISOString(),
       })
     } catch (error) {
-      console.error("❌ Error getting debug transactions:", error)
+      console.error("✗ Error getting debug transactions:", error)
       res.status(500).json({
         status: false,
         message: "Failed to get transactions",
@@ -50,7 +50,7 @@ module.exports = (app) => {
           if (transaction.status !== "pending" || new Date(transaction.expired) < now) {
             global.transactions.delete(transactionId)
             cleanedCount++
-            console.log("🗑️ Manual cleanup:", transactionId)
+            console.log("▷ Manual cleanup:", transactionId)
           }
         }
       }
@@ -65,7 +65,7 @@ module.exports = (app) => {
         timestamp: new Date().toISOString(),
       })
     } catch (error) {
-      console.error("❌ Error in manual cleanup:", error)
+      console.error("✗ Error in manual cleanup:", error)
       res.status(500).json({
         status: false,
         message: "Failed to cleanup transactions",

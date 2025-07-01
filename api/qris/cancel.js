@@ -23,13 +23,13 @@ module.exports = (app) => {
       transaction.cancelledAt = new Date()
       global.transactions.set(transactionId, transaction)
 
-      console.log("✅ Transaction cancelled:", transactionId)
+      console.log("✓ Transaction cancelled:", transactionId)
 
       // Schedule cleanup for cancelled transaction
       setTimeout(() => {
         if (global.transactions && global.transactions.has(transactionId)) {
           global.transactions.delete(transactionId)
-          console.log("🗑️ Cleaned up cancelled transaction:", transactionId)
+          console.log("▷ Cleaned up cancelled transaction:", transactionId)
         }
       }, 30000) // 30 seconds delay
 

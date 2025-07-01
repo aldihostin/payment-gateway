@@ -3,255 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRIS Payment Gateway - Indonesia</title>
+    <title>QRIS Gateway - Modern Payment Solution</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="icon" href="https://files.catbox.moe/tsn2ke.jpg" type="image/jpeg">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Animated Background -->
     <div class="animated-bg">
-        <div class="bg-shape shape-1"></div>
-        <div class="bg-shape shape-2"></div>
-        <div class="bg-shape shape-3"></div>
-        <div class="bg-shape shape-4"></div>
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
     </div>
 
     <div class="app-container">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="header-brand">
-                <div class="brand-icon">
-                    <i class="fas fa-qrcode"></i>
+        <!-- Modern Header -->
+        <header class="modern-header">
+            <div class="header-content">
+                <div class="brand-section">
+                    <div class="brand-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="logo-glow"></div>
+                    </div>
+                    <div class="brand-text">
+                        <h1 id="headerTitle">QRIS Gateway</h1>
+                        <p id="headerSubtitle">Modern Payment Solution</p>
+                    </div>
                 </div>
-                <div class="brand-info">
-                    <h1 id="headerTitle">QRIS Gateway</h1>
-                    <span id="headerSubtitle">Pembayaran Digital Terpercaya</span>
+                <div class="header-badges">
+                    <div class="security-badge">
+                        <i class="fas fa-shield-check"></i>
+                        <span>Secure</span>
+                    </div>
+                    <div class="live-badge">
+                        <div class="pulse-dot"></div>
+                        <span>Live</span>
+                    </div>
                 </div>
-            </div>
-            <div class="security-badge">
-                <i class="fas fa-shield-check"></i>
-                <span>Secure</span>
             </div>
         </header>
 
         <!-- Main Content -->
         <main class="app-main">
             <!-- Create Payment Section -->
-            <section id="createSection" class="section-card">
-                <div class="card-header">
-                    <div class="header-icon">
+            <section id="createSection" class="glass-card main-card">
+                <div class="card-glow"></div>
+                <div class="card-header-modern">
+                    <div class="header-icon-modern">
                         <i class="fas fa-wallet"></i>
+                        <div class="icon-ripple"></div>
                     </div>
-                    <div class="header-content">
-                        <h2>Buat Pembayaran</h2>
-                        <p>Masukkan nominal yang ingin dibayar</p>
+                    <div class="header-text-modern">
+                        <h2>Create Payment</h2>
+                        <p>Generate secure QRIS code instantly</p>
                     </div>
                 </div>
 
-                <form id="paymentForm" class="payment-form">
-                    <div class="amount-input-group">
-                        <label for="amount">Nominal Pembayaran</label>
-                        <div class="amount-input-wrapper">
-                            <span class="currency-symbol">Rp</span>
+                <form id="paymentForm" class="modern-form">
+                    <div class="input-group-modern">
+                        <label for="amount" class="modern-label">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Payment Amount
+                        </label>
+                        <div class="input-wrapper-modern">
+                            <span class="currency-prefix">Rp</span>
                             <input 
                                 type="text" 
                                 id="amount" 
                                 name="amount" 
-                                placeholder="0" 
+                                placeholder="Enter amount" 
                                 required 
                                 autocomplete="off"
+                                class="modern-input"
                             >
+                            <div class="input-glow"></div>
                         </div>
-                        <div class="input-helper">
+                        <div class="input-hint">
                             <i class="fas fa-info-circle"></i>
-                            <span>Masukkan nominal pembayaran yang diinginkan</span>
+                            <span>Minimum amount: Rp 1,000</span>
                         </div>
                     </div>
 
-                    <button type="submit" class="create-btn" id="createBtn">
-                        <span class="btn-text">
+                    <button type="submit" class="modern-btn primary-btn" id="createBtn">
+                        <div class="btn-content">
                             <i class="fas fa-qrcode"></i>
-                            Generate QRIS
-                        </span>
-                        <div class="btn-loading">
-                            <div class="loading-spinner"></div>
-                            <span>Membuat QRIS...</span>
+                            <span>Generate QRIS</span>
                         </div>
+                        <div class="btn-loading">
+                            <div class="spinner"></div>
+                            <span>Creating...</span>
+                        </div>
+                        <div class="btn-glow"></div>
                     </button>
                 </form>
             </section>
 
             <!-- Payment Status Section -->
-            <section id="statusSection" class="section-card hidden">
+            <section id="statusSection" class="glass-card status-card hidden">
+                <div class="card-glow"></div>
+                
                 <!-- Status Header -->
-                <div class="status-header">
-                    <div class="status-title">
-                        <h2>Status Pembayaran</h2>
-                        <div id="statusBadge" class="status-badge"></div>
+                <div class="status-header-modern">
+                    <div class="status-title-section">
+                        <h2>Payment Status</h2>
+                        <div id="statusBadge" class="status-badge-modern"></div>
                     </div>
-                    <div class="transaction-info">
-                        <div class="transaction-id">
-                            <span class="label">ID Transaksi:</span>
-                            <div class="id-container">
-                                <code id="transactionId"></code>
-                                <button class="copy-id-btn" onclick="copyTransactionId()" title="Copy ID">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                            </div>
+                    <div class="transaction-card">
+                        <div class="transaction-label">Transaction ID</div>
+                        <div class="transaction-id-section">
+                            <code id="transactionId" class="transaction-code"></code>
+                            <button class="copy-btn" onclick="copyTransactionId()" title="Copy ID">
+                                <i class="fas fa-copy"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Payment Info -->
-                <div class="payment-info">
-                    <div class="info-item">
+                <!-- Payment Info Cards -->
+                <div class="info-cards-grid">
+                    <div class="info-card">
                         <div class="info-icon">
                             <i class="fas fa-money-bill-wave"></i>
                         </div>
                         <div class="info-content">
-                            <span class="info-label">Jumlah</span>
+                            <span class="info-label">Amount</span>
                             <span class="info-value" id="paymentAmount"></span>
                         </div>
                     </div>
-                    <div class="info-item">
+                    <div class="info-card">
                         <div class="info-icon">
                             <i class="fas fa-clock"></i>
                         </div>
                         <div class="info-content">
-                            <span class="info-label">Berlaku Hingga</span>
+                            <span class="info-label">Expires At</span>
                             <span class="info-value" id="paymentExpiry"></span>
                         </div>
                     </div>
-                    <!-- Amount Adjustment Info (hidden by default) -->
-                    <div id="adjustmentInfo" class="info-item adjustment-info hidden">
+                    <div id="adjustmentInfo" class="info-card adjustment-card hidden">
                         <div class="info-icon">
-                            <i class="fas fa-info-circle"></i>
+                            <i class="fas fa-adjust"></i>
                         </div>
                         <div class="info-content">
-                            <span class="info-label">Penyesuaian Jumlah</span>
+                            <span class="info-label">Amount Adjusted</span>
                             <span class="info-value" id="adjustmentText"></span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Countdown Timer -->
-                <div id="countdownSection" class="countdown-section">
+                <div id="countdownSection" class="countdown-card">
                     <div class="countdown-header">
                         <i class="fas fa-hourglass-half"></i>
-                        <span>Sisa Waktu Pembayaran</span>
+                        <span>Time Remaining</span>
                     </div>
                     <div class="countdown-display">
-                        <div class="time-unit">
+                        <div class="time-block">
                             <span class="time-value" id="minutes">05</span>
-                            <span class="time-label">Menit</span>
+                            <span class="time-label">Minutes</span>
                         </div>
                         <div class="time-separator">:</div>
-                        <div class="time-unit">
+                        <div class="time-block">
                             <span class="time-value" id="seconds">00</span>
-                            <span class="time-label">Detik</span>
+                            <span class="time-label">Seconds</span>
                         </div>
                     </div>
-                    <div class="countdown-progress">
-                        <div class="progress-fill" id="progressFill"></div>
+                    <div class="progress-ring">
+                        <svg class="progress-svg" width="120" height="120">
+                            <circle class="progress-bg" cx="60" cy="60" r="54"></circle>
+                            <circle class="progress-fill" cx="60" cy="60" r="54" id="progressCircle"></circle>
+                        </svg>
+                        <div class="progress-center">
+                            <i class="fas fa-clock"></i>
+                        </div>
                     </div>
                 </div>
 
-                <!-- QRIS Code Display -->
-                <div id="qrisSection" class="qris-section-bottom">
-                    <div class="qris-header-bottom">
-                        <h3><i class="fas fa-qrcode"></i> Scan QR Code untuk Membayar</h3>
-                        <p>Gunakan aplikasi e-wallet atau mobile banking Anda</p>
+                <!-- QRIS Display -->
+                <div id="qrisSection" class="qris-display-card">
+                    <div class="qris-header">
+                        <h3><i class="fas fa-qrcode"></i> Scan to Pay</h3>
+                        <p>Use any e-wallet or mobile banking app</p>
                     </div>
                     
-                    <div class="qris-container-bottom">
-                        <!-- QRIS Frame with Loading and Image -->
-                        <div class="qris-frame-bottom">
-                            <!-- Loading State -->
+                    <div class="qris-container">
+                        <div class="qris-frame">
                             <div id="qrisLoading" class="qris-loading">
                                 <div class="qr-skeleton"></div>
-                                <span>Memuat QR Code...</span>
+                                <span>Loading QR Code...</span>
                             </div>
-                            
-                            <!-- QRIS Image -->
-                            <img id="qrisImage" class="qris-image-bottom hidden" alt="QRIS Payment Code" style="display: none;">
+                            <img id="qrisImage" class="qris-image hidden" alt="QRIS Payment Code">
+                            <div class="qris-overlay">
+                                <div class="scan-line"></div>
+                            </div>
                         </div>
                         
-                        <!-- Supported Apps -->
-                        <div class="supported-apps-bottom">
-                            <span class="apps-label">Didukung oleh:</span>
-                            <div class="apps-icons">
-                                <div class="app-icon" title="GoPay"><i class="fas fa-mobile-alt"></i></div>
-                                <div class="app-icon" title="OVO"><i class="fas fa-wallet"></i></div>
-                                <div class="app-icon" title="DANA"><i class="fas fa-credit-card"></i></div>
-                                <div class="app-icon" title="ShopeePay"><i class="fas fa-shopping-bag"></i></div>
-                                <div class="app-icon" title="Bank"><i class="fas fa-university"></i></div>
+                        <div class="supported-apps">
+                            <span class="apps-title">Supported by:</span>
+                            <div class="apps-grid">
+                                <div class="app-badge" title="GoPay">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>GoPay</span>
+                                </div>
+                                <div class="app-badge" title="OVO">
+                                    <i class="fas fa-wallet"></i>
+                                    <span>OVO</span>
+                                </div>
+                                <div class="app-badge" title="DANA">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>DANA</span>
+                                </div>
+                                <div class="app-badge" title="ShopeePay">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>ShopeePay</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Success Section -->
-                <div id="successSection" class="success-section hidden">
+                <div id="successSection" class="success-card hidden">
                     <div class="success-animation">
-                        <div class="success-checkmark">
+                        <div class="success-icon">
                             <i class="fas fa-check"></i>
                         </div>
-                        <div class="success-ripple"></div>
+                        <div class="success-ripples">
+                            <div class="ripple ripple-1"></div>
+                            <div class="ripple ripple-2"></div>
+                            <div class="ripple ripple-3"></div>
+                        </div>
                     </div>
                     <div class="success-content">
-                        <h3>🎉 Pembayaran Berhasil!</h3>
-                        <p>Transaksi Anda telah berhasil diproses</p>
+                        <h3>🎉 Payment Successful!</h3>
+                        <p>Your transaction has been processed successfully</p>
                         
-                        <!-- Invoice Details -->
-                        <div class="invoice-details">
+                        <div class="invoice-card">
                             <div class="invoice-header">
-                                <h4><i class="fas fa-receipt"></i> Detail Pembayaran</h4>
+                                <h4><i class="fas fa-receipt"></i> Payment Receipt</h4>
                             </div>
                             
-                            <div class="invoice-body">
-                                <div class="detail-row">
-                                    <span class="detail-label">ID Transaksi:</span>
+                            <div class="invoice-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Transaction ID:</span>
                                     <span class="detail-value" id="invoiceTransactionId"></span>
                                 </div>
-                                <div class="detail-row">
-                                    <span class="detail-label">Jumlah Dibayar:</span>
+                                <div class="detail-item">
+                                    <span class="detail-label">Amount Paid:</span>
                                     <span class="detail-value" id="invoicePaidAmount"></span>
                                 </div>
-                                <div class="detail-row">
-                                    <span class="detail-label">Metode Pembayaran:</span>
+                                <div class="detail-item">
+                                    <span class="detail-label">Payment Method:</span>
                                     <span class="detail-value">QRIS</span>
                                 </div>
-                                <div class="detail-row">
-                                    <span class="detail-label">Waktu Pembayaran:</span>
+                                <div class="detail-item">
+                                    <span class="detail-label">Payment Time:</span>
                                     <span class="detail-value" id="invoicePaidTime"></span>
                                 </div>
-                                <div class="detail-row">
+                                <div class="detail-item">
                                     <span class="detail-label">Status:</span>
                                     <span class="detail-value success-status">
-                                        <i class="fas fa-check-circle"></i> BERHASIL
+                                        <i class="fas fa-check-circle"></i> SUCCESS
                                     </span>
                                 </div>
-                                <!-- Show adjustment info if applicable -->
-                                <div id="invoiceAdjustmentInfo" class="detail-row adjustment-row hidden">
-                                    <span class="detail-label">Penyesuaian Jumlah:</span>
+                                <div id="invoiceAdjustmentInfo" class="detail-item adjustment-detail hidden">
+                                    <span class="detail-label">Amount Adjustment:</span>
                                     <span class="detail-value" id="invoiceAdjustmentText"></span>
-                                </div>
-                            </div>
-                            
-                            <div class="invoice-footer">
-                                <div class="invoice-note">
-                                    <i class="fas fa-info-circle"></i>
-                                    <span>Pembayaran telah dikonfirmasi dan diproses dengan aman</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Error/Status Messages -->
-                <div id="messageSection" class="message-section hidden">
+                <!-- Message Section -->
+                <div id="messageSection" class="message-card hidden">
                     <div class="message-icon" id="messageIcon">
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
@@ -263,44 +295,55 @@
 
                 <!-- Action Buttons -->
                 <div class="action-buttons">
-                    <button id="cancelBtn" class="action-btn cancel-btn">
+                    <button id="cancelBtn" class="modern-btn secondary-btn">
                         <i class="fas fa-times"></i>
-                        <span>Batalkan</span>
+                        <span>Cancel</span>
                     </button>
-                    <button id="newPaymentBtn" class="action-btn primary-btn hidden">
+                    <button id="newPaymentBtn" class="modern-btn primary-btn hidden">
                         <i class="fas fa-plus"></i>
-                        <span>Pembayaran Baru</span>
+                        <span>New Payment</span>
                     </button>
                 </div>
             </section>
 
-            <!-- Loading Section (for direct status access) -->
-            <section id="loadingSection" class="section-card hidden">
+            <!-- Loading Section -->
+            <section id="loadingSection" class="glass-card loading-card hidden">
+                <div class="card-glow"></div>
                 <div class="loading-content">
-                    <div class="loading-spinner-large"></div>
-                    <h3>Memuat Status Pembayaran...</h3>
-                    <p>Mohon tunggu sebentar</p>
+                    <div class="loading-animation">
+                        <div class="loading-spinner-modern"></div>
+                        <div class="loading-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <h3>Loading Payment Status...</h3>
+                    <p>Please wait a moment</p>
                 </div>
             </section>
 
-            <!-- Error Section (for direct status access) -->
-            <section id="errorSection" class="section-card hidden">
+            <!-- Error Section -->
+            <section id="errorSection" class="glass-card error-card hidden">
+                <div class="card-glow"></div>
                 <div class="error-content">
-                    <div class="error-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
+                    <div class="error-animation">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
                     </div>
-                    <h3>Transaksi Tidak Ditemukan</h3>
-                    <p>ID transaksi tidak valid atau telah kedaluwarsa</p>
-                    <button onclick="window.location.href='/'" class="action-btn primary-btn">
+                    <h3>Transaction Not Found</h3>
+                    <p>The transaction ID is invalid or has expired</p>
+                    <button onclick="window.location.href='/'" class="modern-btn primary-btn">
                         <i class="fas fa-home"></i>
-                        <span>Kembali ke Beranda</span>
+                        <span>Back to Home</span>
                     </button>
                 </div>
             </section>
         </main>
 
-        <!-- Footer -->
-        <footer class="app-footer">
+        <!-- Modern Footer -->
+        <footer class="modern-footer">
             <div class="footer-content">
                 <div class="footer-brand">
                     <p>&copy; 2025 QRIS Gateway</p>
@@ -311,12 +354,16 @@
                         <i class="fab fa-whatsapp"></i>
                         <span>Channel</span>
                     </a>
+                    <a href="/docs" target="_blank" class="footer-link">
+                        <i class="fas fa-book"></i>
+                        <span>API Docs</span>
+                    </a>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- Toast Notifications -->
+    <!-- Toast Container -->
     <div id="toastContainer" class="toast-container"></div>
 
     <script src="style/script.js"></script>

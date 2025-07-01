@@ -11,7 +11,7 @@ function initializeBot() {
 
   if (!bot) {
     bot = new Telegraf(token)
-    console.log("🤖 Telegram bot initialized")
+    console.log("▶ Telegram bot initialized")
   }
 
   return bot
@@ -48,33 +48,33 @@ async function sendPaymentNotification(paymentData) {
     }
 
     // Create notification message
-let message = `<b>🎉 PEMBAYARAN BERHASIL!</b>\n\n`
-message += `<b>💰 Jumlah:</b> ${formatCurrency(paymentData.amount)}\n`
-message += `<b>🆔 ID Transaksi:</b> <code>${paymentData.transactionId}</code>\n`
-message += `<b>⏰ Waktu:</b> ${formatDateTime(paymentData.paidAt || new Date())}\n`
-message += `<b>💳 Metode:</b> QRIS\n`
-message += `<b>✅ Status:</b> BERHASIL\n\n`
+    let message = `◆ PEMBAYARAN BERHASIL\n\n`
+    message += `▸ Jumlah: ${formatCurrency(paymentData.amount)}\n`
+    message += `▸ ID Transaksi: ${paymentData.transactionId}\n`
+    message += `▸ Waktu: ${formatDateTime(paymentData.paidAt || new Date())}\n`
+    message += `▸ Metode: QRIS\n`
+    message += `▸ Status: BERHASIL\n\n`
 
-if (paymentData.wasAmountAdjusted && paymentData.originalAmount) {
-  const originalAmount = formatCurrency(paymentData.originalAmount)
-  const finalAmount = formatCurrency(paymentData.amount)
-  message += `<b>📝 Penyesuaian Jumlah:</b>\n`
-  message += `   ${originalAmount} → ${finalAmount}\n`
-  message += `   (+${paymentData.amountAdjustment || 1})\n\n`
-}
+    if (paymentData.wasAmountAdjusted && paymentData.originalAmount) {
+      const originalAmount = formatCurrency(paymentData.originalAmount)
+      const finalAmount = formatCurrency(paymentData.amount)
+      message += `▸ Penyesuaian Jumlah:\n`
+      message += `   ${originalAmount} → ${finalAmount}\n`
+      message += `   (+${paymentData.amountAdjustment || 1})\n\n`
+    }
 
-message += `<b>🔗 QRIS Gateway</b>\n`
-message += `Powered by @krsna_081`
+    message += `◆ QRIS Gateway\n`
+    message += `Powered by @krsna_081`
 
     // Send message to owner
     await bot.telegram.sendMessage(ownerId, message, {
       parse_mode: "HTML",
     })
 
-    console.log("✅ Telegram notification sent to owner:", ownerId)
+    console.log("✓ Telegram notification sent to owner:", ownerId)
     return { success: true, message: "Notification sent successfully" }
   } catch (error) {
-    console.error("❌ Error sending Telegram notification:", error.message)
+    console.log("✗ Error sending Telegram notification:", error.message)
     return { success: false, message: error.message }
   }
 }
@@ -84,7 +84,7 @@ module.exports = (app) => {
     try {
       const { transactionId, amount, originalAmount, wasAmountAdjusted, amountAdjustment, paidAt } = req.body
 
-      console.log("📱 Received Telegram notification request:", {
+      console.log("▶ Received Telegram notification request:", {
         transactionId,
         amount,
         wasAmountAdjusted,
@@ -103,7 +103,7 @@ module.exports = (app) => {
       const ownerId = process.env.OWNER_ID
 
       if (!telegramToken || !ownerId) {
-        console.log("⚠️ Telegram not configured - skipping notification")
+        console.log("⚠ Telegram not configured - skipping notification")
         return res.json({
           status: true,
           message: "Telegram not configured - notification skipped",
@@ -125,15 +125,17 @@ module.exports = (app) => {
           status: true,
           message: "Telegram notification sent successfully",
         })
+        console.log("✓ Telegram notification sent successfully")
       } else {
         res.status(500).json({
           status: false,
           message: "Failed to send Telegram notification",
           error: result.message,
         })
+        console.log("✗ Failed to send Telegram notification:", result.message)
       }
     } catch (error) {
-      console.error("❌ Error in telegram-notify endpoint:", error)
+      console.log("✗ Error in telegram-notify endpoint:", error)
       res.status(500).json({
         status: false,
         message: "Internal server error",
@@ -161,7 +163,7 @@ module.exports = (app) => {
 
       // Test sending a message
       const bot = initializeBot()
-      await bot.telegram.sendMessage(ownerId, "🧪 *Test Notification*\n\nTelegram bot berhasil terkonfigurasi!", {
+      await bot.telegram.sendMessage(ownerId, "◆ Test Notification\n\nTelegram bot berhasil terkonfigurasi!", {
         parse_mode: "Markdown",
       })
 
@@ -175,7 +177,7 @@ module.exports = (app) => {
         },
       })
     } catch (error) {
-      console.error("❌ Telegram test failed:", error)
+      console.log("✗ Telegram test failed:", error)
       res.status(500).json({
         status: false,
         message: "Telegram test failed",
