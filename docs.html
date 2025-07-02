@@ -6,253 +6,55 @@
     <title>API Documentation - QRIS Gateway</title>
     <link rel="icon" href="https://files.catbox.moe/tsn2ke.jpg" type="image/jpeg">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
-            min-height: 100vh;
-            color: #1f2937;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .docs-grid {
-            display: grid;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .endpoint-card {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .endpoint-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f3f4f6;
-        }
-
-        .method-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-        }
-
-        .method-post {
-            background: #10b981;
-            color: white;
-        }
-
-        .method-get {
-            background: #3b82f6;
-            color: white;
-        }
-
-        .endpoint-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1f2937;
-        }
-
-        .endpoint-url {
-            font-family: 'Monaco', 'Menlo', monospace;
-            background: #f3f4f6;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            color: #6366f1;
-            border-left: 4px solid #6366f1;
-        }
-
-        .section {
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .code-block {
-            background: #1f2937;
-            color: #f9fafb;
-            padding: 1.5rem;
-            border-radius: 12px;
-            overflow-x: auto;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.875rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-
-        .param-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 1rem;
-        }
-
-        .param-table th,
-        .param-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .param-table th {
-            background: #f9fafb;
-            font-weight: 600;
-            color: #374151;
-        }
-
-        .param-required {
-            color: #ef4444;
-            font-weight: 600;
-        }
-
-        .param-optional {
-            color: #6b7280;
-        }
-
-        .response-status {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-
-        .status-200 {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .status-400 {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .status-404 {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-500 {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .nav-links {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .nav-link {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.2s ease;
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.875rem;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .nav-links {
-                position: static;
-                justify-content: center;
-                margin-bottom: 2rem;
-            }
-
-            .endpoint-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <div class="nav-links">
-        <a href="/" class="nav-link">
-            <i class="fas fa-home"></i> Home
-        </a>
-        <a href="https://wa.me/6281235807940" target="_blank" class="nav-link">
-            <i class="fab fa-whatsapp"></i> Contact
-        </a>
-    </div>
+    <!-- Simple Background -->
+    <div class="simple-bg"></div>
 
-    <div class="container">
-        <div class="header">
-            <h1><i class="fas fa-code"></i> API Documentation</h1>
-            <p>QRIS Payment Gateway REST API</p>
+    <!-- Navigation -->
+    <nav class="docs-nav">
+        <div class="docs-nav-container">
+            <a href="/" class="docs-brand">
+                <i class="fas fa-qrcode"></i>
+                QRIS Gateway
+            </a>
+            <div class="docs-nav-links">
+                <a href="/" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="https://wa.me/6281235807940" target="_blank" class="nav-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Contact</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-container">
+        <!-- Hero Section -->
+        <div class="docs-hero">
+            <div class="docs-hero-icon">
+                <i class="fas fa-code"></i>
+            </div>
+            <h1>API Documentation</h1>
+            <p>Complete REST API reference for QRIS Payment Gateway</p>
+            <div class="docs-badges">
+                <div class="docs-badge badge-rest">
+                    <i class="fas fa-plug"></i>
+                    RESTful API
+                </div>
+                <div class="docs-badge badge-realtime">
+                    <i class="fas fa-bolt"></i>
+                    Real-time Status
+                </div>
+                <div class="docs-badge badge-secure">
+                    <i class="fas fa-shield-alt"></i>
+                    Secure & Reliable
+                </div>
+            </div>
         </div>
 
         <div class="docs-grid">
@@ -267,7 +69,8 @@
                 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-arrow-right"></i> Request Body
+                        <i class="fas fa-arrow-right"></i>
+                        Request Body
                     </h3>
                     <table class="param-table">
                         <thead>
@@ -291,23 +94,32 @@
 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-code"></i> Example Request
+                        <i class="fas fa-code"></i>
+                        Example Request
                     </h3>
                     <div class="code-block">
 {
   "amount": 50000
-}</div>
+}
+                        <button class="copy-code-btn" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-check-circle"></i> Success Response
+                        <i class="fas fa-check-circle"></i>
+                        Success Response
                     </h3>
-                    <span class="response-status status-200">200 OK</span>
+                    <div class="response-status status-200">
+                        <i class="fas fa-check"></i>
+                        200 OK
+                    </div>
                     <div class="code-block">
 {
   "status": true,
-  "creator": "Created Using @krsna_081",
+  "creator": "Created Using Skyzo - @krsna_081",
   "message": "QRIS berhasil dibuat",
   "data": {
     "idtransaksi": "QRIS-A1B2C3D4",
@@ -325,20 +137,32 @@
     "amountAdjustment": 0
   },
   "timestamp": "2025-01-07T12:30:00.000Z"
-}</div>
+}
+                        <button class="copy-code-btn" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-exclamation-triangle"></i> Error Response
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Error Response
                     </h3>
-                    <span class="response-status status-400">400 Bad Request</span>
+                    <div class="response-status status-400">
+                        <i class="fas fa-times"></i>
+                        400 Bad Request
+                    </div>
                     <div class="code-block">
 {
   "status": false,
-  "creator": "Created Using @krsna_081",
+  "creator": "Created Using Skyzo - @krsna_081",
   "message": "Jumlah harus diisi dan lebih dari 0"
-}</div>
+}
+                        <button class="copy-code-btn" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -353,7 +177,8 @@
                 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-route"></i> Path Parameters
+                        <i class="fas fa-route"></i>
+                        Path Parameters
                     </h3>
                     <table class="param-table">
                         <thead>
@@ -377,13 +202,17 @@
 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-check-circle"></i> Success Response
+                        <i class="fas fa-check-circle"></i>
+                        Success Response
                     </h3>
-                    <span class="response-status status-200">200 OK</span>
+                    <div class="response-status status-200">
+                        <i class="fas fa-check"></i>
+                        200 OK
+                    </div>
                     <div class="code-block">
 {
   "status": true,
-  "creator": "Created Using @krsna_081",
+  "creator": "Created Using Skyzo - @krsna_081",
   "message": "Transaction status retrieved",
   "data": {
     "idtransaksi": "QRIS-A1B2C3D4",
@@ -398,12 +227,17 @@
       "qris": "static"
     }
   }
-}</div>
+}
+                        <button class="copy-code-btn" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-info-circle"></i> Status Values
+                        <i class="fas fa-info-circle"></i>
+                        Status Values
                     </h3>
                     <table class="param-table">
                         <thead>
@@ -445,7 +279,8 @@
                 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-route"></i> Path Parameters
+                        <i class="fas fa-route"></i>
+                        Path Parameters
                     </h3>
                     <table class="param-table">
                         <thead>
@@ -469,20 +304,28 @@
 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-check-circle"></i> Success Response
+                        <i class="fas fa-check-circle"></i>
+                        Success Response
                     </h3>
-                    <span class="response-status status-200">200 OK</span>
+                    <div class="response-status status-200">
+                        <i class="fas fa-check"></i>
+                        200 OK
+                    </div>
                     <div class="code-block">
 {
   "status": true,
-  "creator": "Created Using @krsna_081",
+  "creator": "Created Using Skyzo - @krsna_081",
   "message": "Transaction cancelled successfully",
   "data": {
     "idtransaksi": "QRIS-A1B2C3D4",
     "status": "cancelled",
     "cancelledAt": "2025-01-07T12:33:00.000Z"
   }
-}</div>
+}
+                        <button class="copy-code-btn" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -497,14 +340,18 @@
                 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-info-circle"></i> Description
+                        <i class="fas fa-info-circle"></i>
+                        Description
                     </h3>
-                    <p>Internal endpoint for sending payment notifications to Telegram. Automatically called when payment is successful.</p>
+                    <p style="color: var(--gray-600); margin-bottom: var(--space-4);">
+                        Internal endpoint for sending payment notifications to Telegram. Automatically called when payment is successful.
+                    </p>
                 </div>
 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-arrow-right"></i> Request Body
+                        <i class="fas fa-arrow-right"></i>
+                        Request Body
                     </h3>
                     <table class="param-table">
                         <thead>
@@ -550,20 +397,27 @@
                 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-info-circle"></i> Description
+                        <i class="fas fa-info-circle"></i>
+                        Description
                     </h3>
-                    <p>Development endpoint to view all active transactions in memory.</p>
+                    <p style="color: var(--gray-600); margin-bottom: var(--space-4);">
+                        Development endpoint to view all active transactions in memory.
+                    </p>
                 </div>
 
                 <div class="section">
                     <h3 class="section-title">
-                        <i class="fas fa-check-circle"></i> Success Response
+                        <i class="fas fa-check-circle"></i>
+                        Success Response
                     </h3>
-                    <span class="response-status status-200">200 OK</span>
+                    <div class="response-status status-200">
+                        <i class="fas fa-check"></i>
+                        200 OK
+                    </div>
                     <div class="code-block">
 {
   "status": true,
-  "creator": "Created Using @krsna_081",
+  "creator": "Created Using Skyzo - @krsna_081",
   "message": "Active transactions retrieved",
   "data": {
     "totalTransactions": 2,
@@ -577,15 +431,53 @@
       }
     ]
   }
-}</div>
+}
+                        <button class="copy-code-btn" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="footer">
-            <p>&copy; 2025 QRIS Gateway API Documentation</p>
-            <p>Powered by <a href="https://wa.me/6281235807940" target="_blank" style="color: white;">@krsna_081</a></p>
+        <!-- Footer -->
+        <div class="docs-footer">
+            <div class="docs-footer-content">
+                <p>&copy; 2025 QRIS Gateway API Documentation</p>
+                <p>Powered by <a href="https://wa.me/6281235807940" target="_blank">@krsna_081</a></p>
+                <div class="docs-footer-links">
+                    <a href="/" class="docs-footer-link">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VaOQ0f3BA1f7HHV9DV1J" target="_blank" class="docs-footer-link">
+                        <i class="fab fa-whatsapp"></i>
+                        Channel
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const text = codeBlock.textContent.trim();
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const icon = button.querySelector('i');
+                const originalClass = icon.className;
+                icon.className = 'fas fa-check';
+                button.style.color = 'var(--success)';
+                
+                setTimeout(() => {
+                    icon.className = originalClass;
+                    button.style.color = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
 </body>
 </html>

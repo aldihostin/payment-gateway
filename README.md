@@ -1,6 +1,6 @@
 # 🚀 QRIS Payment Gateway
 
-> **Modern QRIS Payment Gateway with Beautiful UI/UX and Real-time Status Tracking**
+> **Simple, elegant, and powerful QRIS Payment Gateway with modern UI/UX**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
@@ -9,25 +9,25 @@
 ## ✨ Features
 
 ### 🎯 **Core Features**
-- **🔥 Dynamic QRIS Generation** - Create unique payment codes instantly
-- **⚡ Real-time Status Tracking** - Automatic payment monitoring every 5 seconds
-- **🧠 Smart Amount Adjustment** - Prevents duplicate amounts automatically
-- **📱 Telegram Notifications** - Instant payment alerts to owner
-- **🗑️ Auto Cleanup** - Automatic expired transaction management
+- **Dynamic QRIS Generation** - Create unique payment codes instantly
+- **Real-time Status Tracking** - Automatic payment monitoring every 5 seconds
+- **Smart Amount Adjustment** - Prevents duplicate amounts automatically
+- **Telegram Notifications** - Instant payment alerts to owner
+- **Auto Cleanup** - Automatic expired transaction management
 
-### 🎨 **Modern UI/UX**
-- **✨ Glassmorphism Design** - Beautiful transparent cards with blur effects
-- **🌈 Gradient Backgrounds** - Eye-catching animated gradients
-- **🎭 Smooth Animations** - Professional micro-interactions
-- **📱 Mobile Responsive** - Perfect on all devices
-- **🌙 Modern Dark Theme** - Trendy dark interface
+### 🎨 **Simple & Elegant UI/UX**
+- **Clean Design** - Simple and elegant interface
+- **Responsive Layout** - Perfect on all devices
+- **Smooth Animations** - Subtle and professional transitions
+- **Modern Typography** - Clean and readable fonts
+- **Intuitive Navigation** - Easy to use interface
 
 ### 🔧 **Technical Features**
-- **🔌 RESTful API** - Complete API with beautiful documentation
-- **⚡ In-Memory Storage** - Lightning-fast transaction management
-- **🛡️ Error Handling** - Comprehensive error management
-- **🌐 CORS Enabled** - Cross-origin request support
-- **🔐 Environment Config** - Secure configuration management
+- **RESTful API** - Complete API with documentation
+- **In-Memory Storage** - Fast transaction management
+- **Error Handling** - Comprehensive error management
+- **CORS Enabled** - Cross-origin request support
+- **Environment Config** - Secure configuration management
 
 ## 🚀 Quick Start
 
@@ -42,7 +42,7 @@
 \`\`\`bash
 # Clone the repository
 git clone https://github.com/krsna081/payment-gateway.git
-cd payment-gateway
+cd qris-payment-gateway
 
 # Install dependencies
 npm install
@@ -67,16 +67,16 @@ ORD_APIKEY=your_orderkuota_api_key
 TELEGRAM_TOKEN=your_telegram_bot_token
 OWNER_ID=your_telegram_user_id
 PORT=3000
-NODE_ENV=production
+NODE_ENV=development
 \`\`\`
 
 ## 📱 Usage
 
 ### 🌐 Web Interface
-1. **💰 Create Payment** - Enter amount and generate QRIS
-2. **📤 Share QR Code** - Customer scans with e-wallet app
-3. **👀 Real-time Monitoring** - Automatic status updates every 5 seconds
-4. **✅ Payment Confirmation** - Instant success notification with receipt
+1. **Create Payment** - Enter amount and generate QRIS
+2. **Share QR Code** - Customer scans with e-wallet app
+3. **Real-time Monitoring** - Automatic status updates every 5 seconds
+4. **Payment Confirmation** - Instant success notification with receipt
 
 ### 🔌 API Integration
 
@@ -108,35 +108,29 @@ qris-payment-gateway/
 │   ├── 📄 telegram-notify.js # Telegram notifications
 │   └── 📄 debug.js           # Debug endpoints
 ├── 📁 style/                 # Frontend Assets
-│   ├── 📄 style.css          # Modern CSS with glassmorphism
+│   ├── 📄 style.css          # Simple & elegant CSS
 │   └── 📄 script.js          # Interactive JavaScript
-├── 📄 index.html             # Modern web interface
-├── 📄 docs.html              # Beautiful API documentation
+├── 📄 index.html             # Simple web interface
+├── 📄 docs.html              # Clean API documentation
 ├── 📄 index.js               # Express server configuration
 ├── 📄 vercel.json            # Vercel deployment config
 ├── 📄 .env                   # Environment variables
 └── 📄 README.md              # This file
 \`\`\`
 
-## 🎨 UI/UX Highlights
+## 🎨 Design Philosophy
 
-### 🏠 **Homepage**
-- **Glassmorphism cards** with beautiful blur effects
-- **Animated gradient backgrounds** with floating orbs
-- **Smooth micro-interactions** and hover effects
-- **Mobile-first responsive design**
+### 🎯 **Simple & Elegant**
+- **Clean Interface** - No unnecessary elements or distractions
+- **Consistent Design** - Unified design language throughout
+- **Readable Typography** - Clear and easy to read text
+- **Intuitive Layout** - Logical flow and organization
 
-### 💳 **Payment Interface**
-- **Real-time countdown timer** with circular progress
-- **Animated QR code display** with scan line effect
-- **Status badges** with color-coded states
-- **Interactive buttons** with loading states
-
-### 📚 **API Documentation**
-- **Modern documentation UI** with syntax highlighting
-- **Interactive code examples** with copy functionality
-- **Comprehensive endpoint reference**
-- **Beautiful responsive design**
+### 📱 **Mobile First**
+- **Responsive Design** - Works perfectly on all screen sizes
+- **Touch Friendly** - Optimized for touch interactions
+- **Fast Loading** - Lightweight and optimized assets
+- **Offline Ready** - Basic functionality works offline
 
 ## 🔌 API Endpoints
 
@@ -181,13 +175,10 @@ pm2 save
 
 \`\`\`bash
 # Start development server
-npm run dev
+npm start
 
-# View logs
-npm run logs
-
-# Test API endpoints
-npm run test
+# View logs in console
+# Test API endpoints with tools like Postman
 \`\`\`
 
 ### 📝 Adding New Features
@@ -195,7 +186,7 @@ npm run test
 1. **API Endpoints** - Add new files to `api/qris/` directory
 2. **Frontend Features** - Modify `style/script.js` and `style/style.css`
 3. **Documentation** - Update `docs.html` with new endpoints
-4. **Testing** - Add tests for new functionality
+4. **Testing** - Test thoroughly before deployment
 
 ## 🔒 Security & Performance
 
@@ -211,7 +202,7 @@ npm run test
 - **Optimized API calls** to external services
 - **Automatic cleanup** prevents memory leaks
 - **Efficient caching** strategies
-- **Compressed responses**
+- **Lightweight assets**
 
 ## 🤝 Contributing
 
@@ -225,13 +216,15 @@ We welcome contributions! Please follow these steps:
 
 ### 📋 Contribution Guidelines
 - Follow existing code style
-- Add tests for new features
+- Keep it simple and elegant
+- Test thoroughly
 - Update documentation
 - Ensure mobile responsiveness
 
 ## 👨‍💻 Author & Support
 
-**@krsna_081** - Professional Payment Gateway Developer
+[Krizz](https://www.tiktok.com/@krsna_081) - Payment Gateway Developer
+[Gresya](https://www.tiktok.com/@mchax0) - My Girlfriend 🤍
 
 - 📱 **WhatsApp**: [i'm krizz?](https://wa.me/6281235807940)
 - 📢 **Channel**: [WhatsApp Channel](https://whatsapp.com/channel/0029VaOQ0f3BA1f7HHV9DV1J)
@@ -247,11 +240,11 @@ We welcome contributions! Please follow these steps:
 
 ## 📊 Project Stats
 
-- ⚡ **Performance**: Sub-second response times
+- ⚡ **Performance**: Fast and lightweight
 - 🔒 **Security**: Industry-standard practices
 - 📱 **Mobile**: 100% responsive design
-- 🎨 **Modern**: Latest UI/UX trends
-- 🚀 **Production**: Ready for scale
+- 🎨 **Design**: Simple and elegant
+- 🚀 **Production**: Ready for deployment
 
 ---
 
@@ -261,6 +254,6 @@ We welcome contributions! Please follow these steps:
 
 **Made with ❤️ in Indonesia**
 
-[⭐ Star](https://github.com/krsna081/payment-gateway) • [🐛 Issues](https://github.com/krsna081/payment-gateway/issues) • [✨ Features](https://github.com/krsna081/payment-gateway/issues) • [📖 Wiki](https://github.com/krsna081/payment-gateway/wiki)
+[⭐ Star](https://github.com/krsna081/payment-gateway) • [🐛 Issues](https://github.com/krsna081/payment-gateway/issues) • [✨ Features](https://github.com/krsna081/payment-gateway/issues)
 
 </div>

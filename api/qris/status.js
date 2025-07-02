@@ -110,8 +110,6 @@ module.exports = (app) => {
               // Handle status changes
               if (transaction.status === "success" && oldStatus !== "success") {
                 console.log("◆ Pembayaran berhasil!")
-                // Send Telegram notification to owner
-                sendOwnerNotification(transaction)
               }
             } else {
               console.log("▷ No matching payment found yet")
@@ -164,36 +162,4 @@ module.exports = (app) => {
       })
     }
   })
-
-  async function sendOwnerNotification(transaction) {
-    try {
-      console.log("▶ Sending owner notification for successful payment...")
-
-      const response = await fetch("https://qris-krizz.vercel.app/api/qris/telegram-notify", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          transactionId: transaction.idtransaksi,
-          amount: transaction.amount,
-          originalAmount: transaction.originalAmount,
-          wasAmountAdjusted: transaction.wasAmountAdjusted,
-          amountAdjustment: transaction.amountAdjustment,
-          paidAt: new Date().toISOString(),
-        }),
-      })
-
-      const result = await response.json()
-
-      if (result.status) {
-        console.log("✓ Owner notification sent successfully")
-      } else {
-        console.log("✗ Failed to send owner notification:", result.message)
-      }
-    } catch (error) {
-      console.error("✗ Error sending owner notification:", error)
-      // Don't show error to user as this is background notification
-    }
-  }
 }
